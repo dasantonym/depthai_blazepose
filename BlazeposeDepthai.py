@@ -369,7 +369,7 @@ class BlazeposeDepthai:
         print("Creating Landmark Neural Network...")          
         lm_nn = pipeline.createNeuralNetwork()
         lm_nn.setBlobPath(str(Path(self.lm_model).resolve().absolute()))
-        lm_nn.setNumInferenceThreads(1)
+        lm_nn.setNumInferenceThreads(2)
         # Landmark input
         lm_in = pipeline.createXLinkIn()
         lm_in.setStreamName("lm_in")
