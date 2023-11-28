@@ -8,10 +8,10 @@ import depthai as dai
 import time, sys
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-POSE_DETECTION_MODEL = str(SCRIPT_DIR / "models/pose_detection_sh4.blob")
-LANDMARK_MODEL_FULL = str(SCRIPT_DIR / "models/pose_landmark_full_sh4.blob")
-LANDMARK_MODEL_HEAVY = str(SCRIPT_DIR / "models/pose_landmark_heavy_sh4.blob")
-LANDMARK_MODEL_LITE = str(SCRIPT_DIR / "models/pose_landmark_lite_sh4.blob")
+POSE_DETECTION_MODEL = str(SCRIPT_DIR / "models/pose_detection_sh6.blob")
+LANDMARK_MODEL_FULL = str(SCRIPT_DIR / "models/pose_landmark_full_sh6.blob")
+LANDMARK_MODEL_HEAVY = str(SCRIPT_DIR / "models/pose_landmark_heavy_sh6.blob")
+LANDMARK_MODEL_LITE = str(SCRIPT_DIR / "models/pose_landmark_lite_sh6.blob")
 
 
 def to_planar(arr: np.ndarray, shape: tuple) -> np.ndarray:
@@ -349,7 +349,7 @@ class BlazeposeDepthai:
         pd_nn = pipeline.createNeuralNetwork()
         pd_nn.setBlobPath(str(Path(self.pd_model).resolve().absolute()))
         # Increase threads for detection
-        # pd_nn.setNumInferenceThreads(2)
+        pd_nn.setNumInferenceThreads(2)
         # Specify that network takes latest arriving frame in non-blocking manner
         # Pose detection input                 
         if self.input_type == "rgb":
