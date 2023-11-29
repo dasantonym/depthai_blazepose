@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import queue
+import time
+
 import numpy as np
 
 from lib.ws_server import run_server
@@ -50,6 +52,8 @@ if __name__ == '__main__':
                 body_send_queue.put(bytes(body_payload), False)
             except queue.Full:
                 pass
+        else:
+            time.sleep(0.04)
 
         if fps.frame_cnt % 25 == 0:
             print(str(fps.fps()))
