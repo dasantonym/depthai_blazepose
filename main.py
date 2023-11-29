@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     cfg_rcv_queue = Queue()
     body_send_queue = Queue(1)
-    p = Process(target=run_server, args=(cfg_rcv_queue, body_send_queue,))
+    p = Process(target=run_server, args=(cfg_rcv_queue, body_send_queue, 8001))
     p.start()
 
     while True:
