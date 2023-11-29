@@ -28,6 +28,8 @@ if __name__ == '__main__':
 
     fps = FPSHandler()
 
+    points_delete = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 17, 18, 19, 20, 21, 22]
+
     while True:
         fps.next_iter()
 
@@ -36,7 +38,7 @@ if __name__ == '__main__':
 
         # Parse results
         if body is not None:
-            landmarks_world = body.landmarks_world.astype(np.float32)
+            landmarks_world = np.delete(body.landmarks_world, points_delete, 0).astype(np.float32)
             xyz = body.xyz.astype(np.float32)
             xyz_ref = body.xyz_ref
             body_payload = np.insert(landmarks_world, 0, xyz, 0).flatten().tobytes()
