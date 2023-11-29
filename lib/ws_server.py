@@ -14,6 +14,8 @@ def run_server(cfg_queue, data_queue, port=8000, host="localhost"):
                 if data is not None:
                     if isinstance(data, list):
                         payload_bytes = np.float32([item for row in data for item in row]).tobytes()
+                    elif isinstance(data, bytes):
+                        payload_bytes = data
                     else:
                         payload_bytes = data.tobytes()
                     websocket.send(payload_bytes)
