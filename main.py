@@ -30,15 +30,16 @@ if __name__ == '__main__':
         frame, body = tracker.next_frame()
         # Parse results
         if body is not None:
-            landmarks = body.landmarks_world
-            xyz = body.xyz
+            landmarks_world = body.landmarks_world.astype(np.float32)
+            xyz = body.xyz.astype(np.float32)
             xyz_ref = body.xyz_ref
-            body_payload = np.insert(landmarks, 0, xyz, 0).tobytes()
+            body_payload = np.insert(landmarks_world, 0, xyz, 0).flatten().tobytes()
             xyz_ref_bytes = bytes(bytearray(xyz_ref, 'ascii'))
             body_payload = b"".join([body_payload, xyz_ref_bytes])
+
             # Send results via Websockets
             try:
-                body_send_queue.put(bytes(body_payload))
+                body_send_queue.put(bytes(body_payload), False)
             except queue.Full:
                 pass
 
