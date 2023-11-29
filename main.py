@@ -9,18 +9,14 @@ from lib.ws_server import run_server
 from lib.fps_handler import FPSHandler
 from multiprocessing import Process, Queue
 
-from BlazeposeDepthai import BlazeposeDepthai
+from BlazeposeDepthaiDefault import BlazeposeDepthaiDefault
 
 if __name__ == '__main__':
-    tracker = BlazeposeDepthai(pd_model='models/pose_detection_sh6.blob',
-                               lm_model='lite',
+    tracker = BlazeposeDepthaiDefault(
                                smoothing=True,
-                               xyz=True,
-                               crop=False,
                                internal_fps=25,
                                internal_frame_height=400,
                                force_detection=False,
-                               stats=True,
                                trace=True)
 
     cfg_rcv_queue = Queue()
@@ -30,6 +26,7 @@ if __name__ == '__main__':
 
     fps = FPSHandler()
 
+    # Delete face and fingers
     points_delete = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 17, 18, 19, 20, 21, 22]
 
     while True:
