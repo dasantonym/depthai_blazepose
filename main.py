@@ -4,6 +4,7 @@ import queue
 import numpy as np
 
 from lib.ws_server import run_server
+from lib.fps_handler import FPSHandler
 from multiprocessing import Process, Queue
 
 from BlazeposeDepthai import BlazeposeDepthai
