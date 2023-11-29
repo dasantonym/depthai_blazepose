@@ -25,9 +25,14 @@ if __name__ == '__main__':
     p = Process(target=run_server, args=(cfg_rcv_queue, body_send_queue, 8001))
     p.start()
 
+    fps = FPSHandler()
+
     while True:
+        fps.next_iter()
+
         # Run blazepose on next frame
         frame, body = tracker.next_frame()
+
         # Parse results
         if body is not None:
             landmarks_world = body.landmarks_world.astype(np.float32)
@@ -43,6 +48,7 @@ if __name__ == '__main__':
             except queue.Full:
                 pass
 
-    p.kill()
-    renderer.exit()
+        if fps.frame_cnt % 25 == 0:
+            print(str(fps.fps()))
+
     tracker.exit()
